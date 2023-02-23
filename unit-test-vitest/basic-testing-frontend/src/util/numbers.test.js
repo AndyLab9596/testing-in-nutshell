@@ -1,29 +1,50 @@
-import { expect, it } from 'vitest';
-import { transformToNumber } from './numbers';
+import { expect, it, describe } from 'vitest';
+import { cleanNumbers, transformToNumber } from './numbers';
 
-it('should transform string into type of number', () => {
-    const input = "1";
+describe('cleanNumbers()', () => {
+    it('should return an array of number values if an array of string number values is provided', () => {
+        const numbers = ['1', '2'];
 
-    const result = transformToNumber(input);
+        const cleanedNumbers = cleanNumbers(numbers);
 
-    expect(result).toBeTypeOf('number');
-});
+        expect(cleanedNumbers[0]).toBeTypeOf('number');
+    });
 
-it('should transform string into number', () => {
-    const input = "1";
+    it('should throw an error if an array with at least one empty string is provided', () => {
+        const numbers = ['', 1];
 
-    const result = transformToNumber(input);
+        const cleanedFn = () => cleanNumbers(numbers);
 
-    expect(result).toBe(+input);
-});
+        expect(cleanedFn).toThrow();
+    })
+})
 
-it('should yield NaN for non-transformable values', () => {
-    const input = "invalid";
-    const input2 = {};
 
-    const result = transformToNumber(input);
-    const result2 = transformToNumber(input2);
+describe('transformToNumber()', () => {
+    it('should transform string into type of number', () => {
+        const input = "1";
 
-    expect(result).toBeNaN();
-    expect(result2).toBeNaN();
+        const result = transformToNumber(input);
+
+        expect(result).toBeTypeOf('number');
+    });
+
+    it('should transform string into number', () => {
+        const input = "1";
+
+        const result = transformToNumber(input);
+
+        expect(result).toBe(+input);
+    });
+
+    it('should yield NaN for non-transformable values', () => {
+        const input = "invalid";
+        const input2 = {};
+
+        const result = transformToNumber(input);
+        const result2 = transformToNumber(input2);
+
+        expect(result).toBeNaN();
+        expect(result2).toBeNaN();
+    })
 })
