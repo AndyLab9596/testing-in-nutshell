@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest';
 import { transformToNumber } from './numbers';
 
-it('should transform string into number', () => {
+it('should transform string into type of number', () => {
     const input = "1";
 
     const result = transformToNumber(input);
@@ -9,10 +9,21 @@ it('should transform string into number', () => {
     expect(result).toBeTypeOf('number');
 });
 
-it('should yield NaN for non-transformable values', () => {
-    const input = "invalid";
+it('should transform string into number', () => {
+    const input = "1";
 
     const result = transformToNumber(input);
 
+    expect(result).toBe(+input);
+});
+
+it('should yield NaN for non-transformable values', () => {
+    const input = "invalid";
+    const input2 = {};
+
+    const result = transformToNumber(input);
+    const result2 = transformToNumber(input2);
+
     expect(result).toBeNaN();
+    expect(result2).toBeNaN();
 })
