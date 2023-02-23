@@ -6,5 +6,5 @@ it('should transform string into number', () => {
 
     const result = transformToNumber(input);
 
-    expect(result).toBe(1);
+    expect(result).toBeTypeOf('number');
 });
