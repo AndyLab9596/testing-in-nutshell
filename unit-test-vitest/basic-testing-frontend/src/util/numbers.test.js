@@ -8,3 +8,11 @@ it('should transform string into number', () => {
 
     expect(result).toBeTypeOf('number');
 });
+
+it('should yield NaN for non-transformable values', () => {
+    const input = "invalid";
+
+    const result = transformToNumber(input);
+
+    expect(result).toBeNaN();
+})
